@@ -140,9 +140,11 @@ func (r *Request) SetHeader(header, value string) *Request {
 //
 // It overrides the header value set at the client instance level.
 func (r *Request) SetHeaders(headers map[string]string) *Request {
-	for h, v := range headers {
-		r.SetHeader(h, v)
+	h := r.Header
+	for k, v := range headers {
+		h[k] = []string{v}
 	}
+	r.Header = h
 	return r
 }
 

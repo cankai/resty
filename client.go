@@ -225,9 +225,11 @@ func (c *Client) SetHeader(header, value string) *Client {
 //			"Accept": "application/json",
 //		})
 func (c *Client) SetHeaders(headers map[string]string) *Client {
-	for h, v := range headers {
-		c.Header.Set(h, v)
+	h := c.Header
+	for k, v := range headers {
+		h[k] = []string{v}
 	}
+	c.Header = h
 	return c
 }
 
